@@ -1,0 +1,10 @@
+[default]
+name=Default
+runtime=host
+config-opts=
+run-opts=
+prefix=/home/mykola/.cache/gnome-builder/install/face_emoj/host
+app-id=
+postbuild=
+prebuild=
+default=true
