@@ -84,10 +84,10 @@ WSGI_APPLICATION = 'face.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbfqddaq60d6im',
-        'USER': 'wxowaxhcpecbzi',
-        'PASSWORD': '9bb1e5fa868b59b15139f428e53093270bcd8e24badbbe8769993409a38aa156',
-        'HOST': 'ec2-54-217-208-105.eu-west-1.compute.amazonaws.com',
+        'NAME': 'd15nfh3ipof1n7',
+        'USER': 'ponljkjqsufpew',
+        'PASSWORD': '15527829e209ac4c79aba86b4f56cfe5e7a6c134bed5113ceef16322ac6863a9',
+        'HOST': 'ec2-54-75-230-41.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
 }
@@ -131,3 +131,5 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
+django_heroku.settings(locals())
