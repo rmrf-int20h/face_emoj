@@ -53,7 +53,7 @@ def getEmotionsForPhotos(urls):
         response = requests.post(facepp_url, args)
         result = dict()
         result['url'] = url
-        emotions_on_photo = set()
+        emotionOnPhoto = set()
         logger.info('Response from Face++ received')
         logger.info(response.json())
 
@@ -62,15 +62,15 @@ def getEmotionsForPhotos(urls):
             for face in faces:
                 attributes = face.get('attributes')
                 if attributes is not None:
-                    emotions_on_face = attributes.get('emotion')
-                    if emotions_on_face is not None:
-                        for emotion in emotions_on_face:
-                            if emotions_on_face[emotion] >= 50:
-                                emotions_on_photo.add(emotion)
+                    emotionOfFace = attributes.get('emotion')
+                    if emotionOfFace is not None:
+                        for emotion in emotionOfFace:
+                            if emotionOfFace[emotion] >= 50:
+                                emotionOnPhoto.add(emotion)
                                 break
 
-        if len(emotions_on_photo) >= 1:
-            result['emotions'] = emotions_on_photo
+        if len(emotionOnPhoto) >= 1:
+            result['emotions'] = emotionOnPhoto
             results.append(result)
     print(results)
     return results

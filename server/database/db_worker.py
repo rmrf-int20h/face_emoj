@@ -164,11 +164,11 @@ def insertData(request):
 
 # UTILS METHODS
 def getConnection():
-    return psycopg2.connect(dbname='dbfqddaq60d6im',
-                            user='wxowaxhcpecbzi',
-                            password='9bb1e5fa868b59b15139f428e53093270bcd8e24badbbe8769993409a38aa156',
+    return psycopg2.connect(dbname='d15nfh3ipof1n7',
+                            user='ponljkjqsufpew',
+                            password='15527829e209ac4c79aba86b4f56cfe5e7a6c134bed5113ceef16322ac6863a9',
                             port="5432",
-                            host='ec2-54-217-208-105.eu-west-1.compute.amazonaws.com')
+                            host='ec2-54-75-230-41.eu-west-1.compute.amazonaws.com')
 def closeConnection(connection, cursor):
     if connection:
         cursor.close()
