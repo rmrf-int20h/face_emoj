@@ -35,9 +35,13 @@ class App extends Component {
             });
     }
 
-    getEmotionPhotos = emotion => {
-        console.log(emotion);
-        // TODO: POST method for get photos by emotion type.
+    submitEmotions = emotions => {
+        const selectedEmotions = emotions.join('/');
+
+        axios.get('http://int20h-face.herokuapp.com/db_select_emotions/', { emotions: selectedEmotions })
+            .then(response => {
+                console.log(response);
+            });
     }
 
     render() {
@@ -46,8 +50,8 @@ class App extends Component {
         if (!this.state.isLoading) {
             content = (
                 <Fragment>
-                    <Emotions getEmotionPhotos={this.getEmotionPhotos}/>
-                    <GalleryBuilder photos={this.state.photos} />
+                    <Emotions submit={this.submitEmotions}/>
+                    {/* <GalleryBuilder photos={this.state.photos} /> */}
                 </Fragment>
             );
         }

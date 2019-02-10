@@ -1,5 +1,5 @@
 // external
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 // images
 import anger from '../../images/Emodji/anger.png';
 import fear from '../../images/Emodji/fear.png';
@@ -20,19 +20,49 @@ const emotionsMap = [
     {name: 'surprise', path: surprise},
 ];
 
-const renderEmotions = props => {
-    return (
-        <div className={'emotion-wrapper'}>
-            {emotionsMap.map((emotion, index) => {
-                return (
-                    <div key={index} className={'emotion'} onClick={() => props.getEmotionPhotos(emotion)}>
-                        <span className="popover above">{emotion.name}</span>
-                        <img src={emotion.path} alt="emotion" onDragStart={event => event.preventDefault()} />
-                    </div>
-                );
-            })}
-        </div>
-    );
-};
+class Emotions extends Component {
+    state = {
+        selectedEmotions: []
+    }
 
-export default renderEmotions;
+    toggleEmotion = emotion => {
+        const emotions = [...this.state.selectedEmotions];
+
+        if (this.state.selectedEmotions.includes(emotion)) {
+            const index = emotions.indexOf(emotion);
+            emotions.splice(index, 1);
+        } else {
+            emotions.push(emotion);
+        }
+
+        this.setState({ selectedEmotions: emotions });
+    }
+
+    render() {
+        const buttonStyle = Boolean(this.state.selectedEmotions.length) ? 'submit-button' : 'submit-button button-opacity';
+        return (
+            <Fragment>
+                <div className={'emotions-title'}>Select Emotions</div>
+                <div className={'emotion-wrapper'}>
+                    {emotionsMap.map((emotion, index) => {
+                        const emotionStyle = this.state.selectedEmotions.includes(emotion.name) ? 'emotion opacity' : 'emotion';
+
+                        return (
+                            <div key={index} className={emotionStyle} onClick={() => this.toggleEmotion(emotion.name)}>
+                                <span className="popover above">{emotion.name}</span>
+                                <img src={emotion.path} alt="emotion" onDragStart={event => event.preventDefault()} />
+                            </div>
+                        );
+                    })}
+                </div>
+                <button 
+                    className={buttonStyle}
+                    disabled={!this.state.selectedEmotions.length}
+                    onClick={() => this.props.submit(this.state.selectedEmotions)}
+                >Submit</button>
+            </Fragment>
+        );
+    }
+}
+
+export default Emotions;
