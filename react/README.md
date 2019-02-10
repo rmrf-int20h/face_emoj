@@ -1,5 +1,10 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+For run that project you need node.js and npm on your local machine. Node.js: https://nodejs.org/en/, npm: https://www.npmjs.com/.
+
+## npm install
+For install all necessary packeges.
+
 ## Available Scripts
 
 In the project directory, you can run:
