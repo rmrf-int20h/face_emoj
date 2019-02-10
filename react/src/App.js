@@ -12,6 +12,7 @@ import './App.css';
 class App extends Component {
     state = {
         isLoading: true,
+        isShowGallety: false,
         photos: []
     }
 
@@ -36,11 +37,15 @@ class App extends Component {
     }
 
     submitEmotions = emotions => {
-        const selectedEmotions = emotions.join('/');
+        const selectedEmotions = emotions.join('/'),
+            proxyURL = "https://cors-anywhere.herokuapp.com/",
+            url = 'http://int20h-face.herokuapp.com/db_select_emotions/';
 
-        axios.get('http://int20h-face.herokuapp.com/db_select_emotions/', { emotions: selectedEmotions })
+        this.setState({ isLoading: true });
+
+        axios.get(proxyURL + url + `?emotions=${selectedEmotions}`)
             .then(response => {
-                console.log(response);
+                this.setState({ isShowGallety: true, isLoading: false });
             });
     }
 
@@ -50,8 +55,7 @@ class App extends Component {
         if (!this.state.isLoading) {
             content = (
                 <Fragment>
-                    <Emotions submit={this.submitEmotions}/>
-                    {/* <GalleryBuilder photos={this.state.photos} /> */}
+                    {this.state.isShowGallety ? <GalleryBuilder photos={this.state.photos} /> : <Emotions submit={this.submitEmotions}/>}
                 </Fragment>
             );
         }
