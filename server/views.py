@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from server.database import db_worker
+from server.api import api_worker
 
 import logging
 logger = logging.getLogger('django.server')
@@ -9,6 +10,30 @@ logger = logging.getLogger('django.server')
 def index(request):
     return render(request, "index.html")
 
+# API METHODS
+def api_flickr(request):
+    response = api_worker.fetchPhotosFromFlickr()
+    if response:
+        logger.info('flickr api called successfully. views.py')
+        return HttpResponse(response)
+    else:
+        logger.error('flickr api call errored. views.py')
+        return HttpResponse('error')
+
+def receive_emotions_per_photo(request):
+    response = api_worker.fetchPhotosAndEmotions()
+    if response:
+        logger.info('emotions per photo received successfully. views.py')
+        logger.info('start inserting data into DB. views.py')
+        for image in response:
+            db_worker.insertFullData(image)
+            
+        return HttpResponse(response)
+    else:
+        logger.error('receiving emotions per photo errored. views.py')
+        return HttpResponse('error')
+
+# DATABASE METHODS
 def db_managment(request):
     return render(request, 'database_managment.html')
 

@@ -12,7 +12,6 @@
         }
       });
     }
-
     function deleteTableClick() {
       $.get('/db_delete_table', function(data) {
         if (data === 'success') {
@@ -116,13 +115,21 @@
       });
     }
 
+    function getEmotionsPerPhoto() {
+      $.get('api/receive_emotions_per_photo/', function(data) {
+        console.log('emotions per photo received successfully');
+        toastr.success('Emotions per photo received successfully');
+        toastr.success('Database filled successfully');
+      });
+    }
+
     $(document).ready(function() {
       refreshTable();
     });
 </script>
 
 <div class="jumbotron row">
-    <div class="container col-sm-4">
+    <div class="container col-sm-2">
         <button type="button"
                 class="btn btn-primary"
                 onclick="createTableClick()">
@@ -135,7 +142,7 @@
         </button>
     </div>
 
-    <div class="container col-sm-7">
+    <div class="container col-sm-6">
       <form class="form-inline" action="/db_insert_row/" method="get">
         <div class="form-group">
           <label for="url">URL:</label>
@@ -170,6 +177,10 @@
         <br/>
         <button type="submit" class="btn btn-success btn-block">Insert row</button>
       </form>
+    </div>
+
+    <div class="container col-sm-4">
+      <button type="submit" class="btn btn-success btn-block" onclick="getEmotionsPerPhoto();">Fill Database</button>
     </div>
 </div>
 

@@ -85,9 +85,6 @@ def selectDataForEmotions(request):
             'fear': 'hasFear = true'
         }
 
-        for key in request.GET:
-            logger.info(key + ": " + request.GET.get(key))
-
         emotions = request.GET.get('emotions').split('/')
         where_part = " "
         for emotion in emotions:
@@ -106,6 +103,35 @@ def selectDataForEmotions(request):
     finally:
         closeConnection(conn, cursor)
 
+def insertFullData(data):
+    try:
+        logger.info('Inserting data into DB')
+        conn = getConnection()
+        cursor = conn.cursor()
+
+        insert_query = """INSERT INTO images
+            (url, hasHappiness, hasSadness, hasNeutral, hasDisgust, hasAnger, hasSurprise, hasFear)
+             VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"""
+
+        emotions = data.get('emotions')
+        record_to_insert = (data.get('url'),
+                            'happiness' in emotions,
+                            'sadness' in emotions,
+                            'neutral' in emotions,
+                            'disgust' in emotions,
+                            'anger' in emotions,
+                            'surprise' in emotions,
+                            'fear' in emotions)
+        logger.info("Print record to insert " + str(record_to_insert))
+        cursor.execute(insert_query, record_to_insert)
+        conn.commit()
+
+        logger.info('Data inserted successfully in PostgreSQL', cursor.rowcount)
+        return True
+    except Exception as error:
+        logger.error('Error while inserted data in PostgreSQL table', error)
+    finally:
+        closeConnection(conn, cursor)
 def insertData(request):
     try:
         logger.info('Inserting data from DB')

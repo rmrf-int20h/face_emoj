@@ -24,5 +24,8 @@ urlpatterns = [
     path('db_delete_table/', server.views.db_delete_table, name='db_delete_table'),
     path('db_select_all/', server.views.db_select_all, name='db_select_all'),
     path('db_insert_row/', server.views.db_insert_row, name='db_insert_row'),
-    path('db_select_emotions/', server.views.db_select_emotions, name='db_select_emotions')
+    path('db_select_emotions/', server.views.db_select_emotions, name='db_select_emotions'),
+
+    path('api/flickr/', server.views.api_flickr, name='api_flickr'),
+    path('api/receive_emotions_per_photo/', server.views.receive_emotions_per_photo, name='receive_emotions_per_photo')
 ]
