@@ -1,0 +1,39 @@
+.submit-button,
+.return-button {
+    width: 200px;
+    height: 70px;
+    color: white;
+    background: #333;
+    border: 5px white solid;
+    border-radius: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    cursor: pointer;
+    margin-left: 45%;
+    margin-bottom: 50px;
+}
+
+.return-button {
+    margin-top: 50px;
+}
+
+.submit-button:hover,
+.return-button:hover {
+    color: palegreen;
+    border: 5px palegreen solid;
+    -webkit-transition: all 0.4s ease-out;
+    -moz-transition: all 0.4s ease-out;
+    -o-transition: all 0.4s ease-out;
+    -ms-transition: all 0.4s ease-out;
+    transition: all 0.4s ease-out;
+}
+
+.button-opacity {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.button-opacity:hover {
+    color: white;
+    border: 5px white solid;
+}
