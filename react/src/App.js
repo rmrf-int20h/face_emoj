@@ -49,13 +49,17 @@ class App extends Component {
             });
     }
 
+    returnHandler = () => {
+        this.setState({ isShowGallety: false });
+    }
+
     render() {
         let content = <Spinner/>;
 
         if (!this.state.isLoading) {
             content = (
                 <Fragment>
-                    {this.state.isShowGallety ? <GalleryBuilder photos={this.state.photos} /> : <Emotions submit={this.submitEmotions}/>}
+                    {this.state.isShowGallety ? <GalleryBuilder returnHandler={this.returnHandler} photos={this.state.photos} /> : <Emotions submit={this.submitEmotions}/>}
                 </Fragment>
             );
         }
