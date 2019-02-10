@@ -1,0 +1,29 @@
+main {
+    padding: .5vw;
+    font-size: 0;
+    display: -ms-flexbox;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    display: -webkit-box;
+    display: flex;
+}
+main div { 
+    -webkit-box-flex: auto;
+    -ms-flex: auto;
+    flex: auto;
+    width: 400px;
+    margin: .5vw;
+}
+main div img {
+    object-fit: cover;
+    height: 300px;
+    width: 400px;
+}
+@media screen and (max-width: 400px) {
+    main div { margin: 0; }
+    main { padding: 0; }
+}
