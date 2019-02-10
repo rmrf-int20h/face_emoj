@@ -8,6 +8,8 @@ import neutral from '../../images/Emodji/neutral.png';
 import sadness from '../../images/Emodji/sadness.png';
 import surprise from '../../images/Emodji/surprise.png';
 
+import Button from '../Button/Button';
+
 // style
 import './Emotions.css';
 
@@ -55,11 +57,11 @@ class Emotions extends Component {
                         );
                     })}
                 </div>
-                <button 
-                    className={buttonStyle}
+                <Button
+                    buttonStyle={buttonStyle}
                     disabled={!this.state.selectedEmotions.length}
-                    onClick={() => this.props.submit(this.state.selectedEmotions)}
-                >Submit</button>
+                    clicked={() => this.props.submit(this.state.selectedEmotions)}
+                >Submit</Button>
             </Fragment>
         );
     }
