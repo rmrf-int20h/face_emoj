@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<script>
+    function createTableClick() {
+      $.get('/db_create_table', function(data) {
+        if (data === 'success') {
+          console.log('DB table created successfully');
+          toastr.success('DB table created successfully');
+        }
+      });
+    }
+
+    function deleteTableClick() {
+      $.get('/db_delete_table', function(data) {
+        if (data === 'success') {
+          console.log('DB table dropped successfully');
+          toastr.success('DB table dropped successfully');
+        }
+      });
+    }
+
+    function insertRowClick() {
+      $.get('/db_insert_row', function(data) {
+        if (data === 'success') {
+          console.log('table row inserted successfully');
+          toastr.success('table row inserted successfully');
+        }
+      });
+    }
+
+    function refreshTable() {
+      $.get('/db_select_all', function(data) {
+        $('#mainTableId tbody').empty();
+        if (data) {
+          console.log('Data fetched successfully');
+          toastr.success('Data fetched successfully');
+
+          let aRows = JSON.parse(data);
+          for (let i = 0; i < aRows.length; i++) {
+            let oRow = aRows[i];
+
+            $('#mainTableId tbody')
+              .append($('<tr>')
+                  .append($('<td>').append(oRow[0]))
+                  .append($('<td>').append($('<a>').attr('href', oRow[1]).text(oRow[1])))
+                  .append($('<td>').text(oRow[2]))
+                  .append($('<td>').text(oRow[4]))
+                  .append($('<td>').text(oRow[5]))
+                  .append($('<td>').text(oRow[6]))
+                  .append($('<td>').text(oRow[7]))
+                  .append($('<td>').text(oRow[8]))
+                  .append($('<td>').text(oRow[9]))
+                  .append($('<td>').text(oRow[10]))
+            );
+          }
+        }
+      });
+    }
+    function refreshTableOnlyHappy() {
+      $.get('/db_select_emotions', {'emotions': 'happiness'}, function(data) {
+        $('#mainTableId tbody').empty();
+        if (data) {
+          console.log('Data fetched successfully');
+          toastr.success('Data fetched successfully');
+
+          let aRows = JSON.parse(data);
+          for (let i = 0; i < aRows.length; i++) {
+            let oRow = aRows[i];
+
+            $('#mainTableId tbody')
+              .append($('<tr>')
+                  .append($('<td>').append(oRow[0]))
+                  .append($('<td>').append($('<a>').attr('href', oRow[1]).text(oRow[1])))
+                  .append($('<td>').text(oRow[2]))
+                  .append($('<td>').text(oRow[4]))
+                  .append($('<td>').text(oRow[5]))
+                  .append($('<td>').text(oRow[6]))
+                  .append($('<td>').text(oRow[7]))
+                  .append($('<td>').text(oRow[8]))
+                  .append($('<td>').text(oRow[9]))
+                  .append($('<td>').text(oRow[10]))
+            );
+          }
+        }
+      });
+    }
+    function refreshTableOnlyHappyAndNeutral() {
+      $.get('/db_select_emotions', {'emotions': 'happiness/neutral'}, function(data) {
+        $('#mainTableId tbody').empty();
+        if (data) {
+          console.log('Data fetched successfully');
+          toastr.success('Data fetched successfully');
+
+          let aRows = JSON.parse(data);
+          for (let i = 0; i < aRows.length; i++) {
+            let oRow = aRows[i];
+
+            $('#mainTableId tbody')
+              .append($('<tr>')
+                  .append($('<td>').append(oRow[0]))
+                  .append($('<td>').append($('<a>').attr('href', oRow[1]).text(oRow[1])))
+                  .append($('<td>').text(oRow[2]))
+                  .append($('<td>').text(oRow[4]))
+                  .append($('<td>').text(oRow[5]))
+                  .append($('<td>').text(oRow[6]))
+                  .append($('<td>').text(oRow[7]))
+                  .append($('<td>').text(oRow[8]))
+                  .append($('<td>').text(oRow[9]))
+                  .append($('<td>').text(oRow[10]))
+            );
+          }
+        }
+      });
+    }
+
+    $(document).ready(function() {
+      refreshTable();
+    });
+</script>
+
+<div class="jumbotron row">
+    <div class="container col-sm-4">
+        <button type="button"
+                class="btn btn-primary"
+                onclick="createTableClick()">
+            Create table
+        </button>
+        <button type="button"
+                class="btn btn-danger"
+                onclick="deleteTableClick()">
+            Delete table
+        </button>
+    </div>
+
+    <div class="container col-sm-7">
+      <form class="form-inline" action="/db_insert_row/" method="get">
+        <div class="form-group">
+          <label for="url">URL:</label>
+          <input type="text" class="form-control" id="url" name="url">
+        </div>
+        <div class="form-group">
+          <label for="facetoken">Face token:</label>
+          <input type="text" class="form-control" id="facetoken" name="facetoken">
+        </div>
+        <br/>
+        <div class="checkbox">
+          <label><input type="checkbox" name="happiness"> Happiness </label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="sadness"> Sadness </label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="neutral"> Neutral </label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="disgust"> Disgust </label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="anger"> Anger </label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="surprise"> Surprise </label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="fear"> Fear </label>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-success btn-block">Insert row</button>
+      </form>
+    </div>
+</div>
+
+<button type="button" class="btn btn-primary btn-block" onclick="refreshTable();">
+  Refresh data
+</button>
+<button type="button" class="btn btn-default btn-block" onclick="refreshTableOnlyHappy();">
+  Only happy
+</button>
+<button type="button" class="btn btn-default btn-block" onclick="refreshTableOnlyHappyAndNeutral();">
+  Only happy and neutral
+</button>
+<br/>
+<table id="mainTableId" class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">URL</th>
+      <th scope="col">Face Token</th>
+      <th scope="col">Happiness</th>
+      <th scope="col">Sadness</th>
+      <th scope="col">Neutral</th>
+      <th scope="col">Disgust</th>
+      <th scope="col">Anger</th>
+      <th scope="col">Surprise</th>
+      <th scope="col">Fear</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+{% endblock %}
